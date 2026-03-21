@@ -11,7 +11,7 @@ const StoreContextProvider = (props) => {
   const fetchFoodItems = async () => {
     try {
       const response = await axios.get(
-        "http://localhost/Vojon/Backend/Foodlist.php"
+        "http://vojon.wuaze.com/Vojon/Backend/Foodlist.php"
       );
       setFoodList(response.data);
     } catch (error) {
