@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/* =========================
+   THEME TOKENS (Tailwind v4)
+   ========================= */
+@theme {
+  /* Colors */
+  --color-background: hsl(38 100% 97%);
+  --color-foreground: hsl(30 10% 15%);
+
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(30 10% 15%);
+
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(30 10% 15%);
+
+  --color-primary: hsl(30 90% 55%);
+  --color-primary-foreground: hsl(0 0% 100%);
+
+  --color-secondary: hsl(38 60% 92%);
+  --color-secondary-foreground: hsl(30 10% 25%);
+
+  --color-muted: hsl(38 40% 90%);
+  --color-muted-foreground: hsl(30 10% 45%);
+
+  --color-accent: hsl(30 85% 50%);
+  --color-accent-foreground: hsl(0 0% 100%);
+
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+
+  --color-border: hsl(38 30% 85%);
+  --color-input: hsl(38 30% 85%);
+  --color-ring: hsl(30 90% 55%);
+
+  /* Custom restaurant palette */
+  --color-cream: hsl(38 100% 97%);
+  --color-warm-orange: hsl(30 90% 55%);
+  --color-deep-orange: hsl(25 85% 45%);
+  --color-gold: hsl(45 80% 50%);
+  --color-brown: hsl(30 30% 25%);
+  --color-light-cream: hsl(40 80% 95%);
+
+  /* Radius */
+  --radius-lg: 0.75rem;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 20px -2px hsl(30 30% 25% / 0.1);
+  --shadow-card: 0 8px 30px -4px hsl(30 30% 25% / 0.15);
+  --shadow-elevated: 0 20px 50px -10px hsl(30 30% 25% / 0.2);
+
+  /* Fonts */
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Poppins", system-ui, sans-serif;
+}
+
+/* =========================
+   DARK MODE TOKENS
+   ========================= */
+.dark {
+  --color-background: hsl(30 10% 10%);
+  --color-foreground: hsl(38 60% 95%);
+  --color-card: hsl(30 15% 15%);
+  --color-card-foreground: hsl(38 60% 95%);
+  --color-popover: hsl(30 15% 15%);
+  --color-popover-foreground: hsl(38 60% 95%);
+  --color-secondary: hsl(30 20% 20%);
+  --color-secondary-foreground: hsl(38 60% 90%);
+  --color-muted: hsl(30 15% 25%);
+  --color-muted-foreground: hsl(38 30% 60%);
+  --color-border: hsl(30 15% 25%);
+  --color-input: hsl(30 15% 25%);
+}
+select {
+  accent-color: orange;
+}
+option{
+  background-color: var(--color-card);
+  color: var(--color-card-foreground);
+}
+
+
+/* =========================
+   BASE STYLES
+   ========================= */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+/* =========================
+   COMPONENTS
+   ========================= */
+@layer components {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-accent)
+    );
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-gradient-warm {
+    background-image: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-deep-orange)
+    );
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+}
+
+/* =========================
+   UTILITIES & ANIMATIONS
+   ========================= */
+@layer utilities {
+  .animate-fade-up {
+    animation: fade-up 0.6s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.5s ease-out forwards;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
