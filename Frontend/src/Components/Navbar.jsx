@@ -44,7 +44,7 @@ const Navbar = () => {
         <ul className="hidden md:flex gap-8">
           {navItems.map((item) => (
             <li key={item.name}>
-              <link
+              <Link
                 to={item.href}
                 onClick={() => setActiveLink(item.name)}
                 className={`font-medium transition ${
@@ -54,7 +54,7 @@ const Navbar = () => {
                 }`}
               >
                 {item.name}
-              </link>
+              </Link>
             </li>
           ))}
         </ul>
@@ -85,7 +85,7 @@ const Navbar = () => {
           >
             <ul className="flex flex-col gap-4 pt-4">
               {navItems.map((item) => (
-                <link
+                <Link
                   key={item.name}
                   to={item.href}
                   onClick={() => {
@@ -100,7 +100,7 @@ const Navbar = () => {
                 >
                   {item.icon}
                   {item.name}
-                </link>
+                </Link>
               ))}
               <button className="btn-primary mt-4">Order Now</button>
             </ul>
