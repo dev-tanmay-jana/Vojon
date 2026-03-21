@@ -43,8 +43,8 @@ const Navbar = () => {
         <ul className="hidden md:flex gap-8">
           {navItems.map((item) => (
             <li key={item.name}>
-              <a
-                href={item.href}
+              <link
+                to={item.href}
                 onClick={() => setActiveLink(item.name)}
                 className={`font-medium transition ${
                   activeLink === item.name
@@ -53,7 +53,7 @@ const Navbar = () => {
                 }`}
               >
                 {item.name}
-              </a>
+              </link>
             </li>
           ))}
         </ul>
@@ -84,9 +84,9 @@ const Navbar = () => {
           >
             <ul className="flex flex-col gap-4 pt-4">
               {navItems.map((item) => (
-                <a
+                <link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   onClick={() => {
                     setActiveLink(item.name);
                     setIsMenuOpen(false);
@@ -99,7 +99,7 @@ const Navbar = () => {
                 >
                   {item.icon}
                   {item.name}
-                </a>
+                </link>
               ))}
               <button className="btn-primary mt-4">Order Now</button>
             </ul>
