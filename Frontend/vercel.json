@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://vojon.42web.io/Backend/$1"
+    }
+  ]
+}
