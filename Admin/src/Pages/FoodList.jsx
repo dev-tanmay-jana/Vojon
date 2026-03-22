@@ -16,7 +16,7 @@ const FoodList = () => {
   const fetchFoods = async () => {
     try {
       const response = await axios.get(
-        "http://localhost/Vojon/Backend/Foodlist.php"
+        "https://vojon.42web.io/Backend/Foodlist.php"
       );
       setFoodItems(response.data);
     } catch (error) {
@@ -28,11 +28,11 @@ const FoodList = () => {
     fetchFoods();
   }, []);
 
-  // ❌ Delete food
+  
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        "http://localhost/Vojon/Backend/DeleatFood.php",
+        "https://vojon.42web.io/Backend/Foodlist.php",
         {
           data: { id },
           headers: { "Content-Type": "application/json" },
@@ -68,7 +68,7 @@ const FoodList = () => {
             className="bg-white px-6 py-4 grid grid-cols-[100px_1fr_1fr_100px_100px_80px_100px_50px] gap-4 items-center rounded-xl shadow"
           >
             <img
-              src={`http://localhost/Vojon/Backend/${item.image}`}
+              src={`https://vojon.42web.io/Backend/${item.image}`}
               className="w-16 h-16 object-cover rounded"
             />
 
