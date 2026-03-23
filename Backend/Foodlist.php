@@ -2,7 +2,7 @@
 require 'DbConnect.php';
 
 // CORS headers
-header("Access-Control-Allow-Origin: https://vojon-git-main-dev-tanmay-janas-projects.vercel.app/");
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 

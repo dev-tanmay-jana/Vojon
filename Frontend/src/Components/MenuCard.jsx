@@ -29,7 +29,7 @@ const MenuCard = ({
       {/* Image Container */}
       <div className="relative mb-4 overflow-hidden rounded-xl">
         <img
-          src={`http://localhost/Vojon/Backend/${image}`}
+          src={`/api/uploads/${image}`}
           alt={name}
           className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500"
         />
