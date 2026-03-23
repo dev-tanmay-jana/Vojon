@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
+
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
@@ -14,7 +15,7 @@ const StoreContextProvider = (props) => {
         "/api/Foodlist.php"
       );
       setFoodList(response.data);
-      console.log("Fetched food items:", response.data);
+    //   console.log("Fetched food items:", response.data);
     } catch (error) {
       console.error("Error fetching foods:", error);
     }
