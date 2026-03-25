@@ -11,8 +11,10 @@ import { TbDeviceTabletCheck } from "react-icons/tb";
 import { FaBookReader } from "react-icons/fa";
 import { FaDownload } from "react-icons/fa6";
 import { IoFastFood } from "react-icons/io5";
+import { SlBasket } from "react-icons/sl";
 
-const Navbar = () => {
+
+const Navbar = ({setShowLogin}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
 
@@ -61,18 +63,31 @@ const Navbar = () => {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex gap-4 items-center">
-          <IoFastFood className="cursor-pointer" />
-          <FaUser className="cursor-pointer" />
+          <SlBasket className="cursor-pointer" />
+          
+            <FaUser
+               onClick={() => setShowLogin(true)}
+                className="cursor-pointer" />
+          
           <button className="btn-primary px-5 bg-amber-600 rounded-full py-2">Order Now</button>
         </div>
 
         {/* Mobile Toggle */}
+        {/* Add icons for mobile */}
+        <div className="flex gap-6 items-center mt-4">
+          <SlBasket className="cursor-pointer text-xl" />
+          
+            <FaUser
+            onClick={() => setShowLogin(true)}
+             className="cursor-pointer text-xl" />
+          
         <button
           className="md:hidden"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <RxCross2 size={24} /> : <IoMenu size={24} />}
         </button>
+        </div>
       </nav>
       {/* Mobile Menu */}
       <AnimatePresence>
