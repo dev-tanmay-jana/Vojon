@@ -12,6 +12,7 @@ import News from "./Components/News";
 import { AnimatePresence } from 'framer-motion';
 import StoreContextProvider from "./Context/StoreContext";
 import Login from "./Pages/Login";
+import Register from "./Pages/Register";
 import Address from "./Pages/Address";
  import { ToastContainer, toast } from 'react-toastify';
 
@@ -29,6 +30,8 @@ const AnimatedRoutes = () => {
         <Route path='/app' element={<AppDownload />} />
         <Route path='/booking' element={<ReserveTable />} />
         <Route path='/address' element={<Address />} />
+        <Route path='/login' element={<Login isPage={true} />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </AnimatePresence>
   );

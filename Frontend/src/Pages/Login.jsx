@@ -1,76 +1,113 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { RxCross2 } from "react-icons/rx";
- import { toast } from 'react-toastify';
-const Login = ({ setShowLogin }) => {
-  const [mobile, setMobile] = useState('');
-  const [otpSent, setOtpSent] = useState(false);
-  const [otp, setOtp] = useState(new Array(6).fill(''));
-  const [timer, setTimer] = useState(0);
-  const [verified, setVerified] = useState(false);
+import { toast } from 'react-toastify';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
-  const inputRefs = useRef([]);
+const Login = ({ setShowLogin, isPage }) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const navigate = useNavigate();
 
-  // ⏱ Timer
-  useEffect(() => {
-    let interval;
-    if (otpSent && timer > 0) {
-      interval = setInterval(() => {
-        setTimer((prev) => prev - 1);
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [otpSent, timer]);
-
-  // 📲 Send OTP
-  const handleSendOtp = () => {
-    if (mobile.length === 10) {
-      setOtpSent(true);
-      setTimer(120);
-      toast.success('OTP sent successfully!');
-    } else {
-      toast.error('Enter valid mobile number');
-    }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 🔢 Handle OTP Input
-  const handleChange = (value, index) => {
-    if (!/^[0-9]?$/.test(value)) return;
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost/Vojon/Backend/Login.php', {
+        email: formData.email,
+        password: formData.password,
+        role: 'user'
+      });
 
-    const newOtp = [...otp];
-    newOtp[index] = value;
-    setOtp(newOtp);
-
-    if (value && index < 5) {
-      inputRefs.current[index + 1].focus();
+      if (response.data.status === 'success') {
+        toast.success('Login successful!');
+        localStorage.setItem('userToken', 'true');
+        localStorage.setItem('userData', JSON.stringify(response.data.user));
+        if (setShowLogin) setShowLogin(false);
+        if (isPage) navigate('/');
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error('Login failed! Please check your credentials.');
     }
   };
 
-  // ⌫ Backspace handling
-  const handleKeyDown = (e, index) => {
-    if (e.key === 'Backspace' && !otp[index] && index > 0) {
-      inputRefs.current[index - 1].focus();
-    }
-  };
+  const loginBox = (
+    <div className={`relative w-full max-w-sm bg-white p-6 rounded-xl shadow-lg z-10 ${isPage ? 'mx-auto my-auto mt-20' : ''}`}>
 
-  // ✅ Verify OTP
-  const handleVerifyOtp = () => {
-    const enteredOtp = otp.join('');
-    if (enteredOtp.length === 6) {
-      setVerified(true);
-    //   toast.success('OTP verified successfully!');
-      setShowLogin(false);
-        toast.success('OTP verified successfully!');
-    } else {
-      toast.error('Enter valid OTP');
-    }
-  };
+      {/* Header */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">Login</h2>
+        {!isPage && (
+          <RxCross2
+            className="text-gray-500 cursor-pointer text-xl"
+            onClick={() => {
+              setShowLogin(false);
+            }}
+          />
+        )}
+      </div>
 
-  // ⏱ Format Timer
-  const formatTime = (seconds) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s < 10 ? '0' : ''}${s}`;
-  };
+      <form onSubmit={handleLogin}>
+        {/* Email Input */}
+        <label className="block mb-2 text-gray-700">Email Address</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Enter Email"
+          required
+          className="w-full border p-2 mb-4 rounded focus:outline-none"
+        />
+
+        {/* Password Input */}
+        <label className="block mb-2 text-gray-700">Password</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Enter Password"
+          required
+          className="w-full border p-2 mb-4 rounded focus:outline-none"
+        />
+
+        {/* Button */}
+        <button
+          type="submit"
+          className="w-full bg-orange-500 text-white p-2 rounded-lg hover:bg-orange-600 transition-colors"
+        >
+          Login
+        </button>
+      </form>
+
+      {isPage && (
+        <div className="mt-4 text-center">
+          <p className="text-sm text-gray-600">
+            Don't have an account?{" "}
+            <Link to="/register" className="text-blue-500 hover:text-blue-700">
+              Register here
+            </Link>
+          </p>
+        </div>
+      )}
+    </div>
+  );
+
+  if (isPage) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        {loginBox}
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -81,76 +118,7 @@ const Login = ({ setShowLogin }) => {
         onClick={() => setShowLogin(false)}
       ></div>
 
-      {/* 🔥 Login Box */}
-      <div className="relative w-full max-w-sm bg-white p-6 rounded-xl shadow-lg z-10">
-
-        {/* Header */}
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Login</h2>
-          <RxCross2
-            className="text-gray-500 cursor-pointer text-xl"
-            onClick={() => {
-              setShowLogin(false);
-            //   console.log('Login closed');
-            }}
-          />
-        </div>
-
-        {/* Mobile Input */}
-        <label className="block mb-2 text-gray-700">Mobile Number</label>
-
-        <input
-          type="text"
-          value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
-          placeholder="Enter Mobile"
-          maxLength={10}
-          className="w-full border p-2 mb-4 rounded focus:outline-none"
-        />
-
-        {/* OTP Section */}
-        {otpSent && (
-          <>
-            <label className="block mb-2 text-gray-700">Enter OTP</label>
-
-            <div className="flex justify-between mb-4">
-              {otp.map((digit, index) => (
-                <input
-                  key={index}
-                  value={digit}
-                  onChange={(e) => handleChange(e.target.value, index)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  ref={(el) => (inputRefs.current[index] = el)}
-                  maxLength={1}
-                  className="w-10 h-10 text-center border rounded"
-                />
-              ))}
-            </div>
-
-            <div className="text-center mb-4">
-              <p>Time left: {formatTime(timer)}</p>
-
-              <p className="text-sm text-gray-600 mt-2">
-                Didn't receive OTP?{" "}
-                <span
-                  onClick={handleSendOtp}
-                  className="text-blue-500 cursor-pointer"
-                >
-                  Resend
-                </span>
-              </p>
-            </div>
-          </>
-        )}
-
-        {/* Button */}
-        <button
-          onClick={otpSent ? handleVerifyOtp : handleSendOtp}
-          className="w-full bg-orange-500 text-white p-2 rounded-lg"
-        >
-          {otpSent ? "Verify OTP" : "Send OTP"}
-        </button>
-      </div>
+      {loginBox}
     </div>
   );
 };
