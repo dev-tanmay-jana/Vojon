@@ -43,7 +43,7 @@ const AddFood = ({ onAdd }) => {
 
   try {
     const response = await axios.post(
-      "http://vojon.infinityfree.io/AddFood.php",
+      "https://vojon.infinityfree.io/AddFood.php",
       data,
       {
         headers: {
