@@ -16,7 +16,7 @@ const FoodList = () => {
   const fetchFoods = async () => {
     try {
       const response = await axios.get(
-        "http://localhost/Vojon/Backend/Foodlist.php"
+        "https://vojon.infinityfree.io/Foodlist.php"
       );
       setFoodItems(response.data);
     } catch (error) {
