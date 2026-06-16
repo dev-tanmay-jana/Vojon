@@ -15,9 +15,13 @@ const FoodList = () => {
   // ✅ Fetch food list
   const fetchFoods = async () => {
     try {
-      const response = await axios.get("https://vojon.infinityfree.io/Foodlist.php")
-  .then(r => console.log([...r.headers.entries()]))
-  .catch(console.error)
+     const response = await axios.get(
+      "https://vojon.infinityfree.io/test.php"
+    );
+
+    console.log("Status:", response.status);
+    console.log("Headers:", response.headers);
+    console.log("Data:", response.data);
 //       console.log(typeof response.data);
 // console.log(response.data);
       setFoodItems(response.data);
