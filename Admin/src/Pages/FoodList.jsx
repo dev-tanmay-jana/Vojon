@@ -68,7 +68,7 @@ const FoodList = () => {
             className="bg-white px-6 py-4 grid grid-cols-[100px_1fr_1fr_100px_100px_80px_100px_50px] gap-4 items-center rounded-xl shadow"
           >
             <img
-              src={`http://localhost/Vojon/Backend/${item.image}`}
+              src={`https://vojon.infinityfree.io/uploads/${filename}`}
               className="w-16 h-16 object-cover rounded"
             />
 
