@@ -18,6 +18,7 @@ const FoodList = () => {
       const response = await axios.get(
         "https://vojon.infinityfree.io/Foodlist.php"
       );
+      console.log(response);
       setFoodItems(response.data);
     } catch (error) {
       console.error("Error fetching foods:", error);
