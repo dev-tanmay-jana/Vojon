@@ -32,7 +32,7 @@ const FoodList = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        "http://localhost/Vojon/Backend/Foodlist.php",
+        "https://vojon.infinityfree.io/Foodlist.php",
         {
           data: { id },
           headers: { "Content-Type": "application/json" },
