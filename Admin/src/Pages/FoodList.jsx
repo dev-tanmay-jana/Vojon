@@ -15,14 +15,11 @@ const FoodList = () => {
   // ✅ Fetch food list
   const fetchFoods = async () => {
     try {
-      const response = await axios.get(
-            "https://vojon.infinityfree.io/Foodlist.php",
-            {
-              withCredentials: true
-            }
-          );
-      console.log(typeof response.data);
-console.log(response.data);
+      const response = await axios.fetch("https://vojon.infinityfree.io/Foodlist.php")
+  .then(r => console.log([...r.headers.entries()]))
+  .catch(console.error)
+//       console.log(typeof response.data);
+// console.log(response.data);
       setFoodItems(response.data);
     } catch (error) {
       console.error("Error fetching foods:", error);
@@ -73,7 +70,7 @@ console.log(response.data);
             className="bg-white px-6 py-4 grid grid-cols-[100px_1fr_1fr_100px_100px_80px_100px_50px] gap-4 items-center rounded-xl shadow"
           >
             <img
-              src={`https://vojon.infinityfree.io/uploads/${filename}`}
+              src={`https://vojon.infinityfree.io/uploads/${item.image}`}
               className="w-16 h-16 object-cover rounded"
             />
 
