@@ -21,6 +21,8 @@ const FoodList = () => {
               withCredentials: true
             }
           );
+      console.log(typeof response.data);
+console.log(response.data);
       setFoodItems(response.data);
     } catch (error) {
       console.error("Error fetching foods:", error);
