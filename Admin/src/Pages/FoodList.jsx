@@ -15,7 +15,7 @@ const FoodList = () => {
   // ✅ Fetch food list
   const fetchFoods = async () => {
     try {
-      const response = await axios.fetch("https://vojon.infinityfree.io/Foodlist.php")
+      const response = await axios.get("https://vojon.infinityfree.io/Foodlist.php")
   .then(r => console.log([...r.headers.entries()]))
   .catch(console.error)
 //       console.log(typeof response.data);
